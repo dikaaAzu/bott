@@ -183,7 +183,7 @@ async function generateAndSendVless(ctx) {
     const prov = session.provider;
 
     const uuid = await getUuid();
-    const pathValue = prov.path ? prov.path : `/%2F${prov.proxy}`;
+    const pathValue = prov.path ? prov.path : `/${prov.proxy}`;
     const accountName = `${session.country}-${prov.name} ${countryData.flag}`;
     const encodedName = encodeURIComponent(accountName);
 

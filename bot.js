@@ -14,7 +14,7 @@ const bugList = [
     { id: 'bug3', name: '🌐 media-sin6-3.cdn.whatsapp.net', host: 'media-sin6-3.cdn.whatsapp.net' },
     { id: 'bug4', name: '🌐 listen.noice.id', host: 'listen.noice.id' },
     { id: 'bug5', name: '🌐 api24-normal.tiktokv.com', host: 'api24-normal.tiktokv.com' },
-    { id: 'bug5', name: '🌐 graph.instagram.com', host: 'graph.instagram.com' }
+    { id: 'bug5', name: '🌐 graph.instagram.com', host: 'graph.instagram.com' },
 ];
 
 const dataServer = {

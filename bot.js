@@ -68,7 +68,7 @@ bot.start(async (ctx) => {
 
     const welcomeText = `
 ╔═════════════════════╗
-    *X33R SERVERLESS VLESS*
+  *X33R SERVERLESS VLESS*
 ╚═════════════════════╝
 
 :: SYSTEM INFO ————————

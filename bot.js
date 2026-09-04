@@ -2,7 +2,7 @@ const { Telegraf, Markup } = require('telegraf');
 const crypto = require('crypto');
 
 // Ganti 'TOKEN_BOT_ANDA_DISINI' dengan token asli dari BotFather
-const BOT_TOKEN = process.env.BOT_TOKEN;
+const BOT_TOKEN = "8896978391:AAEiAwZbpVvIv-KXeIxggYcsnfzLs7YaTOs";
 const bot = new Telegraf(BOT_TOKEN);
 
 const DOMAIN = 'x33r.eu.cc';

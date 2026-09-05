@@ -7,6 +7,24 @@ const bot = new Telegraf(BOT_TOKEN);
 
 const DOMAIN = 'x33r.eu.cc';
 
+const bot = new Telegraf(8896978391:AAEiAwZbpVvIv-KXeIxggYcsnfzLs7YaTOs);
+const USERS_FILE = 'users.json';
+
+// Fungsi rekam ID user otomatis
+function saveUser(userId) {
+    let users = [];
+    try {
+        if (fs.existsSync(USERS_FILE)) {
+            const data = fs.readFileSync(USERS_FILE);
+            users = JSON.parse(data);
+        }
+        if (!users.includes(userId)) {
+            users.push(userId);
+            fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2));
+        }
+    } catch (e) {}
+}
+
 // Daftar Bug Host
 const bugList = [
     { id: 'bug1', name: ' ava.game.naver.com', host: 'ava.game.naver.com' },

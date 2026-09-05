@@ -84,7 +84,7 @@ const userSession = {};
 // ==========================================
 bot.command('broadcast', async (ctx) => {
     // Cek apakah yang ngetik adalah Admin
-    if (ctx.from.id !== ADMIN_ID) {
+    if (ctx.from.id !== 8896978391) {
         return ctx.reply('❌ Anda tidak memiliki izin untuk menggunakan perintah ini.');
     }
 

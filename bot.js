@@ -11,7 +11,7 @@ const USERS_FILE = 'users.json';
 
 // Fungsi rekam ID user otomatis
 function saveUser(userId) {
-    let users = [8896978391];
+    let users = [6161529489];
     try {
         if (fs.existsSync(USERS_FILE)) {
             const data = fs.readFileSync(USERS_FILE);
@@ -90,7 +90,7 @@ bot.use((ctx, next) => {
 // ==========================================
 bot.command('broadcast', async (ctx) => {
     // Cek apakah yang ngetik adalah Admin (ID: 8896978391)
-    if (ctx.from.id !== 8896978391) {
+    if (ctx.from.id !== 6161529489) {
         return ctx.reply('❌ Anda tidak memiliki izin untuk menggunakan perintah ini.');
     }
 

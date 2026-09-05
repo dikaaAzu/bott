@@ -7,7 +7,7 @@ const bot = new Telegraf(BOT_TOKEN);
 
 const DOMAIN = 'x33r.eu.cc';
 
-const bot = new Telegraf(8896978391:AAEiAwZbpVvIv-KXeIxggYcsnfzLs7YaTOs);
+const bot = new Telegraf(BOT_TOKEN);
 const USERS_FILE = 'users.json';
 
 // Fungsi rekam ID user otomatis
@@ -78,6 +78,43 @@ async function getUuid() {
 }
 
 const userSession = {};
+
+// ==========================================
+// FITUR BROADCAST LANGSUNG DI CHAT TELEGRAM
+// ==========================================
+bot.command('broadcast', async (ctx) => {
+    // Cek apakah yang ngetik adalah Admin
+    if (ctx.from.id !== ADMIN_ID) {
+        return ctx.reply('❌ Anda tidak memiliki izin untuk menggunakan perintah ini.');
+    }
+
+    const broadcastMessage = ctx.message.text.split(' ').slice(1).join(' ');
+    if (!broadcastMessage) {
+        return ctx.reply('⚠️ Format salah!\nGunakan contoh: /broadcast Halo, server sudah diperbarui!');
+    }
+
+    if (!fs.existsSync(USERS_FILE)) {
+        return ctx.reply('⚠️ Belum ada database user (`users.json`).');
+    }
+
+    const users = JSON.parse(fs.readFileSync(USERS_FILE));
+    let successCount = 0;
+    let failCount = 0;
+
+    await ctx.reply(`📢 Memulai broadcast ke ${users.length} pengguna...`);
+
+    for (const userId of users) {
+        try {
+            await ctx.telegram.sendMessage(userId, `📢 **PENGUMUMAN ADMIN**\n\n${broadcastMessage}`, { parse_mode: 'Markdown' });
+            successCount++;
+            await new Promise(resolve => setTimeout(resolve, 50)); // Jeda agar tidak spam limit
+        } catch (e) {
+            failCount++;
+        }
+    }
+
+    await ctx.reply(`✅ **Broadcast Selesai!**\n- Berhasil terkirim: ${successCount}\n- Gagal / Block bot: ${failCount}`);
+});
 
 bot.start(async (ctx) => {
     const keyboard = Markup.inlineKeyboard([

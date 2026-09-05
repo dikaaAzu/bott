@@ -1,10 +1,8 @@
 const { Telegraf } = require('telegraf');
 const fs = require('fs');
 
-// ==========================================
-// PENGATURAN BROADCAST
-// ==========================================
-const BOT_TOKEN = '8896978391:AAEiAwZbpVvIv-KXeIxggYcsnfzLs7YaTOs'; // Masukkan Token Bot yang sama
+// Masukkan token bot Anda di sini (pastikan sama persis dengan bot.js)
+const BOT_TOKEN = '8896978391:AAEiAwZbpVvIv-KXeIxggYcsnfzLs7YaTOs'; 
 const USERS_FILE = 'users.json';
 
 const bot = new Telegraf(BOT_TOKEN);
@@ -14,41 +12,40 @@ async function startBroadcast() {
 
     if (!messageText) {
         console.log('❌ Error: Masukkan teks pesan broadcast!');
-        console.log('💡 Contoh cara pakai: node broadcast.js "Halo, ada server baru yang lebih cepat!"');
+        console.log('💡 Contoh: node broadcast.js "Halo semua!"');
         process.exit(1);
     }
 
     if (!fs.existsSync(USERS_FILE)) {
-        console.log('❌ Error: File database users.json tidak ditemukan! Belum ada user yang pakai bot.');
+        console.log('❌ Error: File users.json tidak ditemukan!');
         process.exit(1);
     }
 
     const users = JSON.parse(fs.readFileSync(USERS_FILE));
     if (users.length === 0) {
-        console.log('⚠️ Belum ada user terdaftar di dalam database.');
+        console.log('⚠️ Database users.json kosong.');
         process.exit(0);
     }
 
-    console.log(`📢 Memulai pengiriman broadcast ke ${users.length} pengguna...`);
+    console.log(`📢 Mengirim broadcast ke ${users.length} user...`);
 
     let successCount = 0;
     let failCount = 0;
 
     for (const userId of users) {
         try {
-            await bot.telegram.sendMessage(userId, `📢 **PENGUMUMAN ADMIN**\n\n${messageText}`, { parse_mode: 'Markdown' });
+            await bot.telegram.sendMessage(userId, `📢 **PENGUMUMAN**\n\n${messageText}`, { parse_mode: 'Markdown' });
+            console.log(`✅ Berhasil kirim ke: ${userId}`);
             successCount++;
-            // Jeda 50ms agar aman dari limit spam Telegram
-            await new Promise(resolve => setTimeout(resolve, 50));
+            await new Promise(resolve => setTimeout(resolve, 100)); // Jeda aman
         } catch (e) {
+            console.log(`❌ Gagal kirim ke ${userId} -> ${e.message}`);
             failCount++;
         }
     }
 
     console.log('========================================');
-    console.log('✅ BROADCAST SELESAI!');
-    console.log(`- Berhasil terkirim: ${successCount}`);
-    console.log(`- Gagal / Block bot: ${failCount}`);
+    console.log(`✅ SELESAI | Sukses: ${successCount} | Gagal: ${failCount}`);
     console.log('========================================');
     process.exit(0);
 }

@@ -1,10 +1,9 @@
 const { Telegraf, Markup } = require('telegraf');
 const crypto = require('crypto');
+const fs = require('fs'); // <--- INI PENTING (Modul fs yang tadi kurang)
 
 // Ganti 'TOKEN_BOT_ANDA_DISINI' dengan token asli dari BotFather
 const BOT_TOKEN = "8896978391:AAEiAwZbpVvIv-KXeIxggYcsnfzLs7YaTOs";
-const bot = new Telegraf(BOT_TOKEN);
-
 const DOMAIN = 'x33r.eu.cc';
 
 const bot = new Telegraf(BOT_TOKEN);
@@ -32,8 +31,7 @@ const bugList = [
     { id: 'bug3', name: ' media-sin6-3.cdn.whatsapp.net', host: 'media-sin6-3.cdn.whatsapp.net' },
     { id: 'bug4', name: ' listen.noice.id', host: 'listen.noice.id' },
     { id: 'bug5', name: ' api24-normal.tiktokv.com', host: 'api24-normal.tiktokv.com' },
-    { id: 'bug6', name: ' graph.instagram.com', host: 'graph.instagram.com' },
-    
+    { id: 'bug6', name: ' graph.instagram.com', host: 'graph.instagram.com' }
 ];
 
 const dataServer = {
@@ -66,7 +64,7 @@ const dataServer = {
     }
 };
 
-// Fungsi ambil UUID (menggunakan fetch bawaan Node.js / crypto fallback)
+// Fungsi ambil UUID
 async function getUuid() {
     try {
         const response = await fetch('https://www.uuidgenerator.net/');
@@ -79,11 +77,19 @@ async function getUuid() {
 
 const userSession = {};
 
+// Middleware untuk otomatis merekam setiap user yang berinteraksi/start bot
+bot.use((ctx, next) => {
+    if (ctx.from) {
+        saveUser(ctx.from.id);
+    }
+    return next();
+});
+
 // ==========================================
 // FITUR BROADCAST LANGSUNG DI CHAT TELEGRAM
 // ==========================================
 bot.command('broadcast', async (ctx) => {
-    // Cek apakah yang ngetik adalah Admin
+    // Cek apakah yang ngetik adalah Admin (ID: 8896978391)
     if (ctx.from.id !== 8896978391) {
         return ctx.reply('❌ Anda tidak memiliki izin untuk menggunakan perintah ini.');
     }
@@ -301,3 +307,4 @@ console.log('Bot VLESS Berjalan Sempurna...');
 
 process.once('SIGINT', () => bot.stop('SIGINT'));
 process.once('SIGTERM', () => bot.stop('SIGTERM'));
+        

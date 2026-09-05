@@ -12,7 +12,7 @@ const USERS_FILE = 'users.json';
 
 // Fungsi rekam ID user otomatis
 function saveUser(userId) {
-    let users = [];
+    let users = [8896978391];
     try {
         if (fs.existsSync(USERS_FILE)) {
             const data = fs.readFileSync(USERS_FILE);

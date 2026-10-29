@@ -32,7 +32,9 @@ const bugList = [
     { id: 'bug4', name: ' listen.noice.id', host: 'listen.noice.id' },
     { id: 'bug5', name: ' api24-normal.tiktokv.com', host: 'api24-normal.tiktokv.com' },
     { id: 'bug6', name: ' graph.instagram.com', host: 'graph.instagram.com' }
+    { id: 'bug7', name: ' live.iflix.com', host: 'live.iflix.com' }
 ];
+
 
 const dataServer = {
     'ID': {
